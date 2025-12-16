@@ -8,6 +8,7 @@ export const MESSAGES = {
   LOGIN_SUCCESS: 'Login successful',
   INVALID_CREDENTIALS: 'Invalid email or password',
 
+  
   // Users
   USER_UPDATED: 'User updated successfully',
   USER_DELETED: 'User deleted successfully',
