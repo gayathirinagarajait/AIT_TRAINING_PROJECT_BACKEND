@@ -1,0 +1,17 @@
+# Node
+node_modules/
+
+# NestJS build
+dist/
+
+# Environment
+.env
+.env.*
+
+# Logs
+logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
