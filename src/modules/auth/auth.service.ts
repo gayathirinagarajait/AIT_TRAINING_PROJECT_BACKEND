@@ -20,6 +20,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
+//for new user 
  async register(data: any) {
   try {
     const hash = await bcrypt.hash(data.password, 10);
@@ -28,26 +29,18 @@ export class AuthService {
       ...data,
       password: hash,
     });
-
-    console.log('User created:', user.email);
-
-    console.log('Triggering welcome mail...');
-
     await sendMail({
       to: user.email,
       subject: 'Welcome to Our Application',
       html: welcomeTemplate(user.name),
     });
-
-
     return { message: MESSAGES.USER_REGISTERED };
   } catch (error) {
     console.error('Register error:', error);
     throw error;
   }
 }
-
-
+//mail for login
   async login(data: any) {
     try {
       if (!data.email || !data.password) {
@@ -78,7 +71,7 @@ export class AuthService {
       throw error;
     }
   }
-
+//for forgot password
    async forgotPassword(email: string) {
     try {
       const user = await this.userService.findByEmail(email);

@@ -6,7 +6,6 @@ import { UserModule } from './modules/users/user.module';
 import { ProductModule } from './modules/products/product.module';
 import { MailModule } from './modules/mail/mail.module';
 import { ScheduleModule } from '@nestjs/schedule';
-import { CronModule } from './config/common/cron/cron.module';
 
 @Module({
   imports: [
@@ -17,7 +16,6 @@ import { CronModule } from './config/common/cron/cron.module';
     UserModule,
     ProductModule,
     MailModule, 
-    CronModule,
 
   ],
 })

@@ -27,9 +27,7 @@ export class AuthCronService {
         },
       },
     );
-
-    console.log(
-      // `Cleared expired OTPs: ${result.modifiedCount}`,
-    );
+console.log(result)
+    
   }
 }

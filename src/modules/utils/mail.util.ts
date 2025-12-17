@@ -17,8 +17,8 @@ export const sendMail = async (options: any) => {
       to: options.to,
       subject: options.subject,
       html: options.html,
-      text: options.text
-      // attachments: options.attachments || [],
+      text: options.text,
+      attachments: options.attachments || [],
     });
   } catch (error) {
     throw error;

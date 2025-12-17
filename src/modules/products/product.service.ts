@@ -16,24 +16,23 @@ export class ProductService {
     await this.productModel.create(data);
     return { message: MESSAGES.PRODUCT_CREATED };
   }
-
-  // READ with filters (SOFT DELETE SAFE)
+//get with filter also
   async getAll(query: any) {
     const filter: any = {
-      isDeleted: { $ne: true }, // 🔑 IMPORTANT
+      isDeleted: { $ne: true }, 
     };
 
-    // Filter by name
+    // filter by name
     if (query.name) {
       filter.name = { $regex: query.name, $options: 'i' };
     }
 
-    // Filter by stock availability
+    // filter by stock availability
     if (query.stock) {
       filter.stock = { $gt: 0 };
     }
 
-    // Filter by created date
+    // filter by created date
     if (query.startDate && query.endDate) {
       const start = new Date(query.startDate);
       const end = new Date(query.endDate);
@@ -63,7 +62,7 @@ export class ProductService {
     return { message: MESSAGES.PRODUCT_UPDATED };
   }
 
-  // ✅ SOFT DELETE PRODUCT
+  // SOFT DELETE PRODUCT
   async remove(id: string) {
     const product = await this.productModel.findByIdAndUpdate(
       id,
