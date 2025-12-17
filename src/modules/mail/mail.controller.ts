@@ -41,7 +41,7 @@ export class MailController {
     if (!body.to || !body.type) {
       throw new BadRequestException('to and type are required');
     }
-
+//defined templates 
     let htmlContent = '';
 
     switch (body.type) {
@@ -64,7 +64,6 @@ export class MailController {
       html: htmlContent,
       attachments: body.attachments || [],
     });
-
     return { message: MESSAGES.MAIL_SEND };
   }
 }

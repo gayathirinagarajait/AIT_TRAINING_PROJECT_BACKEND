@@ -43,7 +43,6 @@ async processMailQueue() {
     mail.error = err?.message || 'Mail failed';
     await mail.save();
   }
+ }
 }
-
-  }
 
