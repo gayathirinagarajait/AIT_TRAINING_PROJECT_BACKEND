@@ -1,4 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './user.schema';
@@ -11,67 +14,98 @@ export class UserService {
     private readonly userModel: Model<User>,
   ) {}
 
-  // 🔹 Find by email (ignore deleted users)
-  async findByEmail(email: string) {
-    return this.userModel.findOne({
-      email,
-      isDeleted: { $ne: true },
-    });
+  // 🔹 Find by email (ignore soft-deleted users)
+  async findByEmail(email: string): Promise<User | null> {
+    try {
+      return await this.userModel.findOne({
+        email,
+        isDeleted: { $ne: true },
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
-  // 🔹 Get all active users only
-  async findAll() {
-    return this.userModel
-      .find({ isDeleted: { $ne: true } })
-      .select('-password');
+  // 🔹 Get all active users
+  async findAll(): Promise<User[]> {
+    try {
+      return await this.userModel
+        .find({ isDeleted: { $ne: true } })
+        .select('-password');
+    } catch (error) {
+      throw error;
+    }
   }
 
   // 🔹 Get user by ID
-  async findById(id: string) {
-    const user = await this.userModel
-      .findOne({ _id: id, isDeleted: { $ne: true } })
-      .select('-password');
+  async findById(id: string): Promise<User> {
+    try {
+      const user = await this.userModel
+        .findOne({ _id: id, isDeleted: { $ne: true } })
+        .select('-password');
 
-    if (!user) {
-      throw new NotFoundException('User not found');
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+
+      return user;
+    } catch (error) {
+      throw error;
     }
-
-    return user;
   }
 
-  // 🔹 Create user (UNCHANGED)
-  async create(data: any) {
-    return this.userModel.create(data);
+  // CREATE USER
+  async create(data: any): Promise<User> {
+    try {
+      const user = new this.userModel({
+        ...data,
+        isDeleted: false,
+      });
+
+      return await user.save();
+    } catch (error) {
+      throw error;
+    }
   }
 
-  // 🔹 Update user (UNCHANGED)
+  // 🔹 UPDATE USER
   async update(id: string, data: any) {
-    const user = await this.userModel.findByIdAndUpdate(id, data, {
-      new: true,
-    });
+    try {
+      const user = await this.userModel.findOneAndUpdate(
+        { _id: id, isDeleted: { $ne: true } },
+        data,
+        { new: true },
+      );
 
-    if (!user) {
-      throw new NotFoundException('User not found');
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+
+      return { message: MESSAGES.USER_UPDATED };
+    } catch (error) {
+      throw error;
     }
-
-    return { message: MESSAGES.USER_UPDATED };
   }
 
-  // 🔹 SOFT DELETE USER (UNCHANGED)
+  // SOFT DELETE USER
   async remove(id: string) {
-    const user = await this.userModel.findByIdAndUpdate(
-      id,
-      {
-        isDeleted: true,
-        deletedAt: new Date(),
-      },
-      { new: true },
-    );
+    try {
+      const user = await this.userModel.findOneAndUpdate(
+        { _id: id, isDeleted: { $ne: true } },
+        {
+          isDeleted: true,
+          deletedAt: new Date(),
+        },
+        { new: true },
+      );
 
-    if (!user) {
-      throw new NotFoundException('User not found');
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+
+      return { message: MESSAGES.USER_DELETED };
+    } catch (error) {
+      throw error;
     }
-
-    return { message: MESSAGES.USER_DELETED };
   }
 }

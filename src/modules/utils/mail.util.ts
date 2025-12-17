@@ -16,14 +16,11 @@ export const sendMail = async (options: any) => {
       from: `"Nest App" <${process.env.MAIL_USER}>`,
       to: options.to,
       subject: options.subject,
-      text: options.text,
       html: options.html,
-      attachments: options.attachments || [],
+      text: options.text
+      // attachments: options.attachments || [],
     });
-
-    return true;
   } catch (error) {
-    console.error('Mail Error:', error);
     throw error;
   }
 };

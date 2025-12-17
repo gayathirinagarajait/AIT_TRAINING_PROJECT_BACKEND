@@ -16,4 +16,7 @@ export const MESSAGES = {
   PRODUCT_CREATED: 'Product created successfully',
   PRODUCT_UPDATED: 'Product updated successfully',
   PRODUCT_DELETED: 'Product deleted successfully',
+  //mail 
+  MAIL_SEND :'Template mail sent successfully',
+  OTP_SEND: 'OTP sent to registered email'
 };
