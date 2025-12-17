@@ -25,6 +25,13 @@ export class User extends Document {
 
  @Prop({ type: Date, default: null })
 deletedAt!: Date | null;
+// for forgot passwrd 
+  @Prop({ type: Number, default: null })
+  resetOtp: number | null | undefined;
+
+  @Prop({ type: Date, default: null })
+  resetOtpExpiry: Date | null | undefined;
+
 
 }
 

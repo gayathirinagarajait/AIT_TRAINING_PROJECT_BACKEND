@@ -8,6 +8,7 @@ export const MESSAGES = {
   LOGIN_SUCCESS: 'Login successful',
   INVALID_CREDENTIALS: 'Invalid email or password',
 
+  
   // Users
   USER_UPDATED: 'User updated successfully',
   USER_DELETED: 'User deleted successfully',
@@ -16,4 +17,7 @@ export const MESSAGES = {
   PRODUCT_CREATED: 'Product created successfully',
   PRODUCT_UPDATED: 'Product updated successfully',
   PRODUCT_DELETED: 'Product deleted successfully',
+  //mail 
+  MAIL_SEND :'Template mail sent successfully',
+  OTP_SEND: 'OTP sent to registered email'
 };
