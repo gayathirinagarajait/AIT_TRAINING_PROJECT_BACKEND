@@ -65,7 +65,7 @@ export class MailController {
     if (!to || !type) {
       throw new BadRequestException('to and type are required');
     }
-
+//defined templates 
     let htmlContent = '';
 
     switch (type) {
@@ -115,7 +115,6 @@ export class MailController {
       status: queuedMail.status, 
       attachmentsCount: queuedMail.attachments.length,
     });
-
     return { message: MESSAGES.MAIL_SEND };
   }
 }
