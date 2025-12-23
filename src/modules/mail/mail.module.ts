@@ -4,6 +4,8 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { MailController } from './mail.controller';
 import { MailCronService } from './mail.cron';
 import { MailQueue, MailQueueSchema } from './mail-queue.schema';
+import { MailProcessor } from './mail.processor';
+
 
 @Module({
   imports: [
@@ -13,6 +15,6 @@ import { MailQueue, MailQueueSchema } from './mail-queue.schema';
     ]),
   ],
   controllers: [MailController],
-  providers: [MailCronService],
+  providers: [MailCronService,MailProcessor],
 })
 export class MailModule {}
