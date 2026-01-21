@@ -16,5 +16,5 @@ export const seedAdminUser = async (userModel: Model<User>) => {
     role: ROLES.ADMIN,
   });
 
-  console.log('Admin user created');
+  // console.log('Admin user created');
 };

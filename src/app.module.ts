@@ -6,6 +6,9 @@ import { UserModule } from './modules/users/user.module';
 import { ProductModule } from './modules/products/product.module';
 import { MailModule } from './modules/mail/mail.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'node:path';
+
 
 @Module({
   imports: [
@@ -16,6 +19,10 @@ import { ScheduleModule } from '@nestjs/schedule';
     UserModule,
     ProductModule,
     MailModule, 
+     ServeStaticModule.forRoot({
+      rootPath: join(process.cwd(), 'uploads'),
+      serveRoot: '/uploads',
+    }),
 
   ],
 })

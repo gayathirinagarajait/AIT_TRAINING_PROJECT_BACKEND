@@ -18,7 +18,12 @@ export const sendMail = async (options: any) => {
       subject: options.subject,
       html: options.html,
       text: options.text,
-      attachments: options.attachments || [],
+      attachments: options.attachments || [] ||[
+        {
+          filename: 'Mern.pdf',
+          path: './uploads/testing.pdf', 
+        },
+      ],
     });
   } catch (error) {
     throw error;

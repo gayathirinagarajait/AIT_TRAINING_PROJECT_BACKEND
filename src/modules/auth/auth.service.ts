@@ -11,6 +11,7 @@ import { MESSAGES } from '../../constants/messages.constant';
 import { sendMail } from '../utils/mail.util';
 import { resetPasswordTemplate } from '../../templates/reset-password.template';
 import { welcomeTemplate } from '../../templates/welcome.template';
+import { CreateUserDto } from '../../DTO/create-user.dto';
 
 
 @Injectable()
@@ -21,7 +22,7 @@ export class AuthService {
   ) {}
 
 //for new user 
- async register(data: any) {
+async register(data: CreateUserDto) { 
   try {
     const hash = await bcrypt.hash(data.password, 10);
 
@@ -29,11 +30,13 @@ export class AuthService {
       ...data,
       password: hash,
     });
+    
     await sendMail({
       to: user.email,
       subject: 'Welcome to Our Application',
       html: welcomeTemplate(user.name),
     });
+    
     return { message: MESSAGES.USER_REGISTERED };
   } catch (error) {
     console.error('Register error:', error);
